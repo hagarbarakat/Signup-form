@@ -27,7 +27,7 @@
             </div>
             <a href="signup.php" style="display: block; margin-bottom: 1%;">Create an account?</a>
             <button type="submit"name= "submit" class="btn btn-primary">Submit</button>
-            <span><?php echo $error; ?></span>
+            <p><?php echo $error; ?></p>
           </form>
         </div>
     </div>
