@@ -1,3 +1,6 @@
+<?php
+  include("login_config.php");
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,5 +13,23 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     </head>
     <body>
+        <div style="margin-left: 2%;" >
+        <h1>Login</h1>
+        <div style="width: 50%;">
+        <form action="" method="POST">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" name="email" class="form-control" id="exampleInputEmaillogin" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" name="password" class="form-control" id="exampleInputPasswordlogin">
+            </div>
+            <a href="signup.php" style="display: block; margin-bottom: 1%;">Create an account?</a>
+            <button type="submit"name= "submit" class="btn btn-primary">Submit</button>
+            <span><?php echo $error; ?></span>
+          </form>
+        </div>
+    </div>
     </body>
-<html>
+</html>
