@@ -10,59 +10,46 @@
     class auth{
         public $login_session;
         public $db_connection;
+        public $validation;
 
         public function __construct(){
             $this->db_connection = new database_helper();
+            $this->validation = new Validation();
         }
         
         public function loginbyEmail($arr){
-
-            $error = '';
-            $validation = new Validation();
-            $validateEmail = $validation->validateEmail($arr["email"]);
-            if (!empty($validateEmail)) {
-                $error = $validateEmail; 
+            $sql = $this->db_connection->getUserbyEmail($arr["email"]);
+            $row = mysqli_fetch_array($sql,MYSQLI_ASSOC);
+            //$user = new user($row["username"], $row["email"], $row["phone"], $row["password"]);
+            if($sql !== FALSE && password_verify($arr["password"], isset($row['password']))) {
+                $_SESSION['login_user'] = $row['username'];
+                $_SESSION['login_time'] = time();
+                header("location: welcome.php");
             }
-            else{
-                $sql = $this->db_connection->getUserbyEmail($arr["email"]);
-                $row = mysqli_fetch_array($sql,MYSQLI_ASSOC);
-                //$user = new user($row["username"], $row["email"], $row["phone"], $row["password"]);
-                // If result matched $myusername and $mypassword, table row must be 1 row	
-                if($sql !== FALSE && password_verify($arr["password"], $row['password'])) {
-                    $_SESSION['login_user'] = $row['username'];
-                    $_SESSION['login_time'] = time();
-                    header("location: welcome.php");
-                }
-                else {
-                    $error = "Your Login Name or Password is invalid";
-                }
+            else {
+                $error = "Check your credentials.";
+                return $error;
             }        
-            return $error;
         }
 
         function signup($arr){
             $error = "";
-            // username and password sent from form 
-            $validation = new Validation();
-            $validatedEmail = $validation->validateEmail($arr["email"]);
-            $validatedPhone = $validation->validatePhoneNumber($arr["phone"]);
-            $validatedPassword = $validation->validatePassword($arr["password"]);
-            if (empty($validatedEmail) && empty($validatedPhone) && empty($validatedPassword)) {
-                $psswd = PASSWORD_HASH($arr["password"], PASSWORD_DEFAULT);
-                $result = $this->db_connection->insert($arr["name"], $arr["email"], $psswd, $arr["phone"]);
-                if ($result === TRUE) {
-                    $_SESSION['login_user'] = $username;
-                    $_SESSION['login_time'] = time();
-                    header("location: welcome.php");
-                }
-                else {
-                $error = "Username is already used";
-                }
+            $validatedCredentials = $this->validation->validateSignUp($arr["name"],$arr["email"],$arr["password"], $arr["phone"]);
+            if ($validatedCredentials !== TRUE) {
+                $error = $validatedCredentials;
+                return $error;
             }
-            else{
-                $error = $validatedEmail . $validatedPassword . $validatedPhone;
+            $psswd = PASSWORD_HASH($arr["password"], PASSWORD_DEFAULT);
+            $result = $this->db_connection->insert($arr["name"], $arr["email"], $psswd, $arr["phone"]);
+            if ($result === TRUE) {
+                $_SESSION['login_user'] = $arr['name'];
+                $_SESSION['login_time'] = time();
+                header("location: welcome.php");
             }
-            return $error;
+            else {
+                $error = "Insertion error: either username is already used or email is already used.";
+                return $error;
+            }
         }
 
         function checkSession(){
@@ -82,12 +69,14 @@
             }
             
         }
+
         function logout(){
             session_start();
             if(session_destroy()) {
                 header("Location: ../Views/login.php");
             }
         }
+
         function getLoginSession(){
             $this->checkSession();
             return $this->login_session->getName();
