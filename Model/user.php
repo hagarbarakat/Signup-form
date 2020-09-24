@@ -1,5 +1,5 @@
 <?php
-    class Authentication
+    class user
     {
         private $name;
         private $email;
