@@ -11,21 +11,36 @@
 
         function validatePhoneNumber($myphone){
             $error = "";
-            if(!is_numeric($myphone)) {
-                $error .= "Phonenumber must contain numbers only<br>";
+            if(!preg_match("/^\d+$/", $myphone)) {
+                $error = "Phonenumber must contain numbers only<br>";
             }
             return $error;
         }
 
         function validatePassword($mypassword){
             $error = "";
-            if(strlen($mypassword) < 8){
-                $error .= "Password is less than 8 characters<br>";
+            if(!preg_match('/^(?=.*[^a-zA-Z]).{8,40}$/', $mypassword)){
+                $error = "Password is less than 8 characters<br>";
             }
             return $error;
         }
         function validateName($username){
-            //TODO: validate name by regex
+            $error = "";
+            if(!preg_match("/^[\w ]*$/", $username)){
+                $error = "Enter valid username<br>";
+            }
+            return $error;
+        }
+
+        function validateSignUp($username, $myemail, $mypassword, $myphone){
+            $name = $this->validateName($username);
+            $email = $this->validateEmail($myemail);
+            $phone = $this->validatePhoneNumber($myphone);
+            $password = $this->validatePassword($mypassword);
+            if(empty($name) && empty($email) && empty($phone) && empty($password)){
+                return TRUE;
+            }
+            return $name.$email.$phone.$password;
         }
     }
 ?>
