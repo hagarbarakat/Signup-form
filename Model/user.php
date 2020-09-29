@@ -1,16 +1,18 @@
 <?php
     class user
     {
-        private $name;
-        private $email;
-        private $phone;
-        private $password;
-
-        function __construct($name, $email, $phone, $password) {
-            $this->name = $name;
+        public $name;
+        public $email;
+        public $phone;
+        public $password;
+        public $activationcode;
+        public $verified;
+        //$name, $email, $phone, $password
+        function __construct() {
+           /* $this->name = $name;
             $this->email = $email;
             $this->phone = $phone;
-            $this->password = $password;
+            $this->password = $password;*/
         }
         
         function getName(){
@@ -40,6 +42,11 @@
         function setPassword($password){
             $this->password = $password;
         }
-
+        function setActivationcode($activationcode){
+            $this->activationcode = $activationcode;
+        }
+        function setVerified($verified){
+            $this->verified = $verified;
+        }
     }
     

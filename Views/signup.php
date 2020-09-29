@@ -3,7 +3,7 @@
    include("../Auth/auth.php");
    $error = "";
    if($_SERVER["REQUEST_METHOD"] == "POST") {
-   $arr = array("email"=>$_POST['email'], "password"=>$_POST['password'], "phone"=>$_POST['phone'], "name"=>$_POST['username']);
+   $arr = array('email'=>$_POST['email'], 'password'=>$_POST['password'], 'phone'=>$_POST['phone'], 'name'=>$_POST['username']);
    $auth  = new auth();
    $error =  $auth->signup($arr);
    }
