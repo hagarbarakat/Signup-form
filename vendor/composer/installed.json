@@ -1,5 +1,6 @@
 [
     {
+<<<<<<< HEAD
         "name": "firebase/php-jwt",
         "version": "v5.2.0",
         "version_normalized": "5.2.0.0",
@@ -52,6 +53,8 @@
         ]
     },
     {
+=======
+>>>>>>> 3db40b0716e2f6dca016f406dbb90c8f54ac7fb8
         "name": "phpmailer/phpmailer",
         "version": "v6.1.7",
         "version_normalized": "6.1.7.0",

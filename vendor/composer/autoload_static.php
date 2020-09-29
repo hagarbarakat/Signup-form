@@ -11,10 +11,13 @@ class ComposerStaticInit096e60c2e3dd4c78499fb5efa561d067
         array (
             'PHPMailer\\PHPMailer\\' => 20,
         ),
+<<<<<<< HEAD
         'F' => 
         array (
             'Firebase\\JWT\\' => 13,
         ),
+=======
+>>>>>>> 3db40b0716e2f6dca016f406dbb90c8f54ac7fb8
     );
 
     public static $prefixDirsPsr4 = array (
@@ -22,10 +25,13 @@ class ComposerStaticInit096e60c2e3dd4c78499fb5efa561d067
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
+<<<<<<< HEAD
         'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
+=======
+>>>>>>> 3db40b0716e2f6dca016f406dbb90c8f54ac7fb8
     );
 
     public static function getInitializer(ClassLoader $loader)

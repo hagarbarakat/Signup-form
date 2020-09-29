@@ -1,6 +1,10 @@
 {
     "require": {
+<<<<<<< HEAD
         "phpmailer/phpmailer": "^6.1",
         "firebase/php-jwt": "^5.2"
+=======
+        "phpmailer/phpmailer": "^6.1"
+>>>>>>> 3db40b0716e2f6dca016f406dbb90c8f54ac7fb8
     }
 }
