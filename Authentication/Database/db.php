@@ -4,7 +4,7 @@
    public $connection;
 
    public function __construct(){
-       $this->connection = mysqli_connect("localhost", "root","",'new_admin') or die("Unable to connect");
+       $this->connection = mysqli_connect('db', 'root','secret','new_admin') or die("Unable to connect");
    }
 
    function insert($username, $myemail, $mypassword, $myphone, $activationcode, $verified){

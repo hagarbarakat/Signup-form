@@ -1,5 +1,5 @@
 <?php
-   include('../Auth/auth.php');
+   include("../Auth/auth.php");
    session_start();
    $auth = new auth();
    $loginSession = $auth->getLoginSession();

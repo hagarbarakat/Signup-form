@@ -8,11 +8,11 @@
         public $activationcode;
         public $verified;
         //$name, $email, $phone, $password
-        function __construct() {
-           /* $this->name = $name;
+        function __construct($name, $email, $phone, $password) {
+            $this->name = $name;
             $this->email = $email;
             $this->phone = $phone;
-            $this->password = $password;*/
+            $this->password = $password;
         }
         
         function getName(){

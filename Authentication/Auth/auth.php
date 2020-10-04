@@ -60,10 +60,11 @@
                 $error = "Insertion error: either username is already used or email is already used.";
                 return $error;
             }
-            $this->sendVerification($arr['name'], $arr['email'], $activationcode);
             $_SESSION['login_user'] = $arr['name'];
             $_SESSION['login_time'] = time();
             header("location: verify.php");
+            $this->sendVerification($arr['name'], $arr['email'], $activationcode);
+
         }
 
         function checkSession(){
@@ -77,7 +78,7 @@
             //$_SESSION['login_time'] = time();
             $sql = $this->db_connection->getUserbyName($_SESSION['login_user']);               
             $row = mysqli_fetch_array($sql,MYSQLI_ASSOC);
-            $this->login_session = new user($row["username"], $row["email"], $row["phone"], $row['password']);
+            $this->login_session = new user($row['username'], $row["email"], $row["phone"], $row['password']);
         
         }
 
@@ -135,13 +136,13 @@
             return TRUE;             
         }
         function checkVerification($username){
-            echo $username;
+            //echo $username;
             $result = $this->db_connection->checkverified($username);
             $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
             if($result === FALSE){
                 return "Database error.";
             }
-            echo $row['verified'];
+            //echo $row['verified'];
             if(empty($row['verified'])){
                 return FALSE;
             }

@@ -1,0 +1,43 @@
+version: "3.2"
+services:
+    Auth:  
+        image: auth
+        container_name: auth
+        build: ./Authentication
+        ports: 
+            - "8001:80"
+        volumes:
+            - ./Authentication:/var/www/html/
+        links:
+            - db
+        networks:
+            - default
+    db:
+        container_name: db
+        image: mysql:latest
+        ports: 
+            - "3306:3306"
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_DATABASE: new_admin
+            MYSQL_USER: root
+            MYSQL_PASSWORD: secret
+            MYSQL_ROOT_PASSWORD: secret 
+        volumes:
+            - ./Database:/docker-entrypoint-initdb.d
+            - ./conf:/etc/mysql/conf.d
+            - persistent:/var/lib/mysql
+        networks:
+            - default
+    phpmyadmin:
+        image: phpmyadmin:latest
+        links: 
+            - db:db
+        ports:
+            - 8000:80
+        environment:
+            MYSQL_USER: root
+            MYSQL_PASSWORD: secret
+            MYSQL_ROOT_PASSWORD: secret 
+volumes:
+    persistent:
